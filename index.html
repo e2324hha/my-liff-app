@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LIFF App</title>
+    <script src="https://unpkg.com/@line/liff@latest"></script>
+</head>
+<body>
+    <h1>LIFF App</h1>
+    <div id="user-info"></div>
+    <script>
+        liff.init({ liffId: '2006463532-pEYQlkMg' }, () => {
+            if (liff.isLoggedIn()) {
+                getUserProfile();
+            } else {
+                liff.login();
+            }
+        });
+
+        function getUserProfile() {
+            liff.getProfile().then(profile => {
+                document.getElementById('user-info').innerText = `Hello, ${profile.displayName}`;
+            }).catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>
