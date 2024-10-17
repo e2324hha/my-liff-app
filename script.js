@@ -1,19 +1,24 @@
-// LIFFアプリケーションの初期化
-liff.init({
-    liffId: '2006463532-ERxJnorD'  // あなたのLIFF IDをここに入れる
-})
-.then(() => {
-    // ユーザーのプロフィールを取得
-    return liff.getProfile();
-})
-.then(profile => {
-    const userInfo = `
-        <p>ユーザー名: ${profile.displayName}</p>
-        <img src="${profile.pictureUrl}" alt="プロフィール画像" />
-        <p>ユーザーID: ${profile.userId}</p>
-    `;
-    document.getElementById('user-info').innerHTML = userInfo;
-})
-.catch(err => {
-    console.error(err);
-});
+window.onload = function() {
+    liff.init({ liffId: '2006463532-ERxJnorD' }, () => {
+        if (liff.isLoggedIn()) {
+            displayUserInfo();
+        } else {
+            document.getElementById('login-button').style.display = 'block';
+        }
+    }, err => console.error(err));
+};
+
+document.getElementById('login-button').onclick = function() {
+    liff.login();
+};
+
+function displayUserInfo() {
+    liff.getProfile()
+        .then(profile => {
+            document.getElementById('user-icon').src = profile.pictureUrl;
+            document.getElementById('user-name').textContent = profile.displayName;
+            document.getElementById('user-info').style.display = 'block';
+            document.getElementById('login-button').style.display = 'none';
+        })
+        .catch(err => console.error(err));
+}
