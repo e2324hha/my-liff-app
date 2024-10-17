@@ -1,6 +1,6 @@
 // LIFFアプリケーションの初期化
 liff.init({
-    liffId: '2006463532-pEYQlkMg'  // あなたのLIFF IDをここに入れる
+    liffId: '2006463532-ERxJnorD'  // あなたのLIFF IDをここに入れる
 })
 .then(() => {
     // ユーザーのプロフィールを取得
